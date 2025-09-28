@@ -7,7 +7,7 @@ from typing import Union
 
 from .captcha import (
     ImageCaptcha, TextCaptcha, RecaptchaV2, RecaptchaV3, HCaptcha, FunCaptcha, KeyCaptcha, GeeTest,
-    GeeTestV4, CapyPuzzle
+    GeeTestV4, CapyPuzzle, YandexSC
 )
 from .captcha.base import BaseCaptcha
 from .service.base import SolvedCaptcha, CaptchaTask
@@ -212,6 +212,19 @@ class Solver:
         :rtype: unicaps.AsyncSolvedCaptcha
         """
         return await self._solve_captcha_async(CapyPuzzle, site_key, page_url, **kwargs)
+    
+    async def solve_yandex_sc(self, site_key: str, page_url: str, **kwargs) -> SolvedCaptcha:  # type: ignore
+        r"""Solves Yandex SmartCaptcha.
+
+        :param site_key: значение ключа сайта (например, ysc1_...).
+        :param page_url: полный URL страницы, где капча установлена.
+        :param proxy: (optional) Proxy to use while solving the CAPTCHA.
+        :param user_agent: (optional) User-Agent to use while solving the CAPTCHA.
+        :param cookies: (optional) Cookies to use while solving the CAPTCHA.
+        :return: :class:`AsyncSolvedCaptcha <AsyncSolvedCaptcha>` object
+        :rtype: unicaps.AsyncSolvedCaptcha
+        """
+        return await self._solve_captcha_async(YandexSC, site_key, page_url, **kwargs)
 
     async def create_task(self, captcha: BaseCaptcha) -> CaptchaTask:  # type: ignore
         """Create task to solve CAPTCHA

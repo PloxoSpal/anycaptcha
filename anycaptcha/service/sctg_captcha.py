@@ -359,3 +359,35 @@ class ImageCaptchaTaskRequest(TaskRequest):
 
 class ImageCaptchaSolutionRequest(SolutionRequest):
     """ Image CAPTCHA solution request """
+
+class YandexSCTaskRequest(TaskRequest):
+    """ Yandex SmartCaptcha task request """
+
+    def prepare(self, captcha, proxy, user_agent, cookies) -> dict:  # type: ignore
+        request = super().prepare(
+            captcha=captcha,
+            proxy=proxy,
+            user_agent=user_agent,
+            cookies=cookies
+        )
+
+        request['data'].update(
+            dict(
+                method="yandex",          # см. в доке — это обяз. поле
+                sitekey=captcha.site_key, # ключ сайта
+                pageurl=captcha.page_url  # урл страницы
+            )
+        )
+
+        # если у тебя в классе captcha есть доп. параметры — добавляй тут
+        request['data'].update(
+            captcha.get_optional_data(
+                # пример:
+                # some_opt=('some_opt', None)
+            )
+        )
+
+        return request
+
+class YandexSCSolutionRequest(SolutionRequest):
+    """ Yandex SmartCaptcha solution request """

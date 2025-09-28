@@ -33,6 +33,7 @@ class CaptchaType(StrEnum):
     HCAPTCHA    = "HCaptcha"
     KEYCAPTCHA  = "KeyCaptcha"
     CAPY        = "CapyPuzzle"
+    YANDEXSC    = "YandexSC"
 
 
 class CaptchaAlphabet(StrEnum):

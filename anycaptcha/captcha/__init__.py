@@ -9,3 +9,4 @@ from .geetest import GeeTest, GeeTestSolution
 from .geetest_v4 import GeeTestV4, GeeTestV4Solution
 from .capy import CapyPuzzle, CapyPuzzleSolution
 from .base import CaptchaType, BaseCaptchaSolution
+from .yandex_sc import YandexSC, YandexSCSolution
